@@ -1,9 +1,9 @@
 //#define ShowClassAndNamespace
 
 #if ShowClassAndNamespace
-// 如果有定義 ShowClassAndNamespace，就直接顯示 Class + Namespace
+// If ShowClassAndNamespace is defined, it will directly display Class + Namespace.
 #else
-// 如果沒有定義 ShowClassAndNamespace，就顯示 Result
+// If ShowClassAndNamespace is not defined, display Result
 #define ShowResult
 #endif
 

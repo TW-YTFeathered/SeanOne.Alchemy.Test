@@ -10,7 +10,7 @@ namespace SeanOne.Alchemy.Test.Cases.FluentApi
         public void Setup()
         {
             x = 5;
-            var ins = AlchemyFormatBuilder.SelectBasic()
+            ins = AlchemyFormatBuilder.SelectBasic()
                 .With(BasicParam.Prefix, "[")
                 .With(BasicParam.Suffix, "]")
                 .With(BasicParam.ToString, "F2")

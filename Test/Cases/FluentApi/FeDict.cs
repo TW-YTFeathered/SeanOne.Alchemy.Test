@@ -10,7 +10,7 @@ namespace SeanOne.Alchemy.Test.Cases.FluentApi
         public void Setup()
         {
             x = Enumerable.Range(1, 10).ToDictionary(x => x, x => x * x);
-            var ins = AlchemyFormatBuilder.SelectFeDict()
+            ins = AlchemyFormatBuilder.SelectFeDict()
                 .With(FeDictParam.DictFormat, "{0}=>{1}")
                 .With(FeDictParam.KeyFormat, "D3")
                 .With(FeDictParam.ValueFormat, "F2")

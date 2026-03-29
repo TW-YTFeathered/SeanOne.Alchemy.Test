@@ -5,12 +5,12 @@ namespace SeanOne.Alchemy.Test.Cases.FluentApi
     public class FeSeq : ITest
     {
         List<int> x;
-        IAlchemyFunction<FeDictParam> ins;
+        IAlchemyFunction<FeSeqParam> ins;
         
         public void Setup()
         {
             x = Enumerable.Range(1, 10).ToList();
-            var ins = AlchemyFormatBuilder.SelectFeSeq()
+            ins = AlchemyFormatBuilder.SelectFeSeq()
                 .With(FeSeqParam.Prefix, "[")
                 .With(FeSeqParam.Suffix, "]")
                 .With(FeSeqParam.ToString, "F2")
