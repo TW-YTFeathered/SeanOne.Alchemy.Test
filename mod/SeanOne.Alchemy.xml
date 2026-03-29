@@ -1,0 +1,1030 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SeanOne.Alchemy</name>
+    </assembly>
+    <members>
+        <member name="T:SeanOne.Alchemy.Builder.AlchemyExecutable">
+            <summary>
+            DSL executable class.
+            Provides an interface to run DSL instructions and retrieve the DSL string.
+            </summary>
+        </member>
+        <member name="M:SeanOne.Alchemy.Builder.AlchemyExecutable.#ctor(System.String)">
+            <summary>
+            初始化 DSL 執行器
+            </summary>
+            <param name="dsl"> 要傳入的 DSL 指令 </param>
+        </member>
+        <member name="M:SeanOne.Alchemy.Builder.AlchemyExecutable.Run(System.Object)">
+            <summary>
+            Run DSL instruction.
+            </summary>
+            <param name="obj">Format object.</param>
+            <returns>DSL formatter result.</returns>
+        </member>
+        <member name="M:SeanOne.Alchemy.Builder.AlchemyExecutable.ToString">
+            <summary>
+            Get DSL string.
+            </summary>
+            <returns>DSL string.</returns>
+        </member>
+        <member name="T:SeanOne.Alchemy.Builder.AlchemyFunctionExtensions">
+            <summary>
+            Implements the BuildRun extension method. 
+            Note: Future DSL syntactic sugar methods will also be placed here.
+            </summary>
+        </member>
+        <member name="M:SeanOne.Alchemy.Builder.AlchemyFunctionExtensions.BuildRun``1(SeanOne.Alchemy.Builder.IAlchemyFunction{``0},System.Object)">
+            <summary>
+            Builds the DSL formatter and immediately executes it with the specified object.
+            Equivalent to calling <c>Build().Run(obj)</c>.
+            </summary>
+            <typeparam name="TParam">The type of parameter enum used by the DSL function.</typeparam>
+            <param name="func">The DSL function builder instance.</param>
+            <param name="obj">The object to be formatted.</param>
+            <returns>The formatted result string.</returns>
+        </member>
+        <member name="M:SeanOne.Alchemy.Builder.AlchemyFunctionExtensions.BuildToString``1(SeanOne.Alchemy.Builder.IAlchemyFunction{``0})">
+            <summary>
+            Builds the DSL formatter and returns its DSL string representation.
+            Equivalent to calling <c>Build().ToString()</c>.
+            </summary>
+            <typeparam name="TParam">The type of parameter used in the DSL function.</typeparam>
+            <param name="func">The DSL function builder instance.</param>
+            <returns>The DSL string representing the configured formatting rules.</returns>
+        </member>
+        <member name="T:SeanOne.Alchemy.Builder.AlchemyFormatBuilder">
+            <summary>
+            Provides methods to initialize and build DSL functions.
+            </summary>
+        </member>
+        <member name="M:SeanOne.Alchemy.Builder.AlchemyFormatBuilder.SelectBasic">
+            <summary>
+            Creates an instance of the <see cref="T:SeanOne.Alchemy.Builder.BasicFunc"/> class.
+            </summary>
+            <returns>An <see cref="T:SeanOne.Alchemy.Builder.IBasicAlchemyFunction`1"/> implementation.</returns>
+        </member>
+        <member name="M:SeanOne.Alchemy.Builder.AlchemyFormatBuilder.SelectFeSeq">
+            <summary>
+            Creates an instance of the <see cref="T:SeanOne.Alchemy.Builder.FeSequenceFunc"/> class.
+            Note: Internally relies on the same underlying DSL function (fe) as <see cref="T:SeanOne.Alchemy.Builder.FeDictionaryFunc"/>,
+            but provided here for semantic distinction.
+            </summary>
+            <returns>An <see cref="T:SeanOne.Alchemy.Builder.ISequenceAlchemyFunction`1"/> implementation.</returns>
+        </member>
+        <member name="M:SeanOne.Alchemy.Builder.AlchemyFormatBuilder.SelectFeDict">
+            <summary>
+            Creates an instance of the <see cref="T:SeanOne.Alchemy.Builder.FeDictionaryFunc"/> class.
+            Note: Internally relies on the same underlying DSL function (fe) as <see cref="T:SeanOne.Alchemy.Builder.FeSequenceFunc"/>,
+            but provided here for semantic distinction.
+            </summary>
+            <returns>An <see cref="T:SeanOne.Alchemy.Builder.IDictionaryAlchemyFunction`1"/> implementation.</returns>
+        </member>
+        <member name="T:SeanOne.Alchemy.Builder.BasicParam">
+            <summary>
+            Defines the parameter options used by <c>IBasicAlchemyFunction</c> (basic).
+            Handles basic DSL parameters and formatting logic.
+            </summary>
+        </member>
+        <member name="F:SeanOne.Alchemy.Builder.BasicParam.End">
+            <summary>
+            Appends a string after each value.
+            DSL param: <c>end</c>.
+            </summary>
+        </member>
+        <member name="F:SeanOne.Alchemy.Builder.BasicParam.ToString">
+            <summary>
+            Applies formatting to items implementing <c>IFormattable</c>. Not applicable to dictionaries. Use C#'s <c>ToString()</c> method.
+            DSL param: <c>tostring</c>.
+            </summary>
+        </member>
+        <member name="F:SeanOne.Alchemy.Builder.BasicParam.Prefix">
+            <summary>
+            Prepends a string before the value.
+            DSL param: <c>prefix</c>.
+            </summary>
+        </member>
+        <member name="F:SeanOne.Alchemy.Builder.BasicParam.Suffix">
+            <summary>
+            Appends a string after the value.
+            DSL param: <c>suffix</c>.
+            </summary>
+        </member>
+        <member name="T:SeanOne.Alchemy.Builder.BasicFunc">
+            <summary>
+            Implementation of <c>IBasicAlchemyFunction</c> using <c>BasicParam</c>.
+            Handles basic DSL parameters and formatting logic.
+            </summary>
+        </member>
+        <member name="M:SeanOne.Alchemy.Builder.BasicFunc.#ctor">
+            <summary>
+            初始化，先添加 basic
+            </summary>
+        </member>
+        <member name="M:SeanOne.Alchemy.Builder.BasicFunc.With(SeanOne.Alchemy.Builder.BasicParam,System.String)">
+            <summary>
+            Adds a parameter and its associated value to the DSL function.
+            </summary>
+            <param name="param">The DSL parameter to configure.</param>
+            <param name="value">The value associated with the parameter.</param>
+            <returns>The current DSL function instance for chaining.</returns>
+        </member>
+        <member name="M:SeanOne.Alchemy.Builder.BasicFunc.Build">
+            <summary>
+            Builds the DSL function into a <see cref="T:SeanOne.Alchemy.Builder.AlchemyExecutable"/> instance.
+            </summary>
+            <returns>The constructed <see cref="T:SeanOne.Alchemy.Builder.AlchemyExecutable"/>.</returns>
+        </member>
+        <member name="T:SeanOne.Alchemy.Builder.FeSeqParam">
+            <summary>
+            Defines the parameter options used by <c>ISequenceAlchemyFunction</c> (fe).
+            Handles sequence-specific DSL parameters and formatting logic.
+            </summary>
+        </member>
+        <member name="F:SeanOne.Alchemy.Builder.FeSeqParam.End">
+            <summary>
+            Appends a string after each value.
+            DSL param: <c>end</c>.
+            </summary>
+        </member>
+        <member name="F:SeanOne.Alchemy.Builder.FeSeqParam.ExcludeLastEnd">
+            <summary>
+            Omits the end string after the last item.
+            DSL param: <c>exclude-last-end</c>.
+            </summary>
+        </member>
+        <member name="F:SeanOne.Alchemy.Builder.FeSeqParam.FinalPairSeparator">
+            <summary>
+            Replaces the separator between the last two items in the sequence. Falls back to <c>end</c> if not specified.
+            DSL param: <c>final-pair-separator</c>.
+            </summary>
+        </member>
+        <member name="F:SeanOne.Alchemy.Builder.FeSeqParam.ToString">
+            <summary>
+            Applies formatting to items implementing <c>IFormattable</c>. Not applicable to dictionaries. Use C#'s <c>ToString()</c> method.
+            DSL param: <c>tostring</c>.
+            </summary>
+        </member>
+        <member name="F:SeanOne.Alchemy.Builder.FeSeqParam.Prefix">
+            <summary>
+            Prepends a string before the sequence. Note: Adds to entire result, not each element.
+            DSL param: <c>prefix</c>.
+            </summary>
+        </member>
+        <member name="F:SeanOne.Alchemy.Builder.FeSeqParam.Suffix">
+            <summary>
+            Appends a string after the sequence. Note: Adds to entire result, not each element.
+            DSL param: <c>suffix</c>.
+            </summary>
+        </member>
+        <member name="F:SeanOne.Alchemy.Builder.FeSeqParam.FeOpt">
+            <summary>
+            Enable optimized formatting (may have compatibility issues).
+            DSL param: <c>fe-opt</c>.
+            </summary>
+        </member>
+        <member name="T:SeanOne.Alchemy.Builder.FeSequenceFunc">
+            <summary>
+            Implementation of <c>ISequenceAlchemyFunction</c> using <c>FeSeqParam</c>.
+            </summary>
+        </member>
+        <member name="M:SeanOne.Alchemy.Builder.FeSequenceFunc.#ctor">
+            <summary>
+            初始化，先添加 fe
+            </summary>
+        </member>
+        <member name="M:SeanOne.Alchemy.Builder.FeSequenceFunc.With(SeanOne.Alchemy.Builder.FeSeqParam,System.String)">
+            <summary>
+            Adds a parameter and its associated value to the DSL function.
+            </summary>
+            <param name="param">The DSL parameter to configure.</param>
+            <param name="value">The value associated with the parameter.</param>
+            <returns>The current DSL function instance for chaining.</returns>
+        </member>
+        <member name="M:SeanOne.Alchemy.Builder.FeSequenceFunc.Build">
+            <summary>
+            Builds the DSL function into a <see cref="T:SeanOne.Alchemy.Builder.AlchemyExecutable"/> instance.
+            </summary>
+            <returns>The constructed <see cref="T:SeanOne.Alchemy.Builder.AlchemyExecutable"/>.</returns>
+        </member>
+        <member name="T:SeanOne.Alchemy.Builder.FeDictParam">
+            <summary>
+            Defines the parameter options used by <c>IDictionaryAlchemyFunction</c> (fe).
+            Handles dictionary-specific DSL parameters and formatting logic.
+            </summary>
+        </member>
+        <member name="F:SeanOne.Alchemy.Builder.FeDictParam.DictFormat">
+            <summary>
+            Format string for dictionary entries. 
+            Use <c>{0}</c> to represent the key and <c>{1}</c> to represent the value.
+            DSL param: <c>dict-format</c>.
+            </summary>
+        </member>
+        <member name="F:SeanOne.Alchemy.Builder.FeDictParam.End">
+            <summary>
+            Appends a string after each value.
+            DSL param: <c>end</c>.
+            </summary>
+        </member>
+        <member name="F:SeanOne.Alchemy.Builder.FeDictParam.ExcludeLastEnd">
+            <summary>
+            Omits the end string after the last item.
+            DSL param: <c>exclude-last-end</c>.
+            </summary>
+        </member>
+        <member name="F:SeanOne.Alchemy.Builder.FeDictParam.FinalPairSeparator">
+            <summary>
+            Replaces the separator between the last two items in the sequence. Falls back to `end` if not specified.
+            DSL param: <c>final-pair-separator</c>.
+            </summary>
+        </member>
+        <member name="F:SeanOne.Alchemy.Builder.FeDictParam.KeyFormat">
+            <summary>
+            Format string applied to dictionary keys.
+            DSL param: <c>key-format</c>.
+            </summary>
+        </member>
+        <member name="F:SeanOne.Alchemy.Builder.FeDictParam.ValueFormat">
+            <summary>
+            Format string applied to dictionary values.
+            DSL param: <c>value-format</c>.
+            </summary>
+        </member>
+        <member name="F:SeanOne.Alchemy.Builder.FeDictParam.Prefix">
+            <summary>
+            Prepends a string before the sequence. Note: Adds to entire result, not each element.
+            DSL param: <c>prefix</c>.
+            </summary>
+        </member>
+        <member name="F:SeanOne.Alchemy.Builder.FeDictParam.Suffix">
+            <summary>
+            Appends a string after the sequence. Note: Adds to entire result, not each element.
+            DSL param: <c>suffix</c>.
+            </summary>
+        </member>
+        <member name="F:SeanOne.Alchemy.Builder.FeDictParam.FeOpt">
+            <summary>
+            Enable optimized formatting (may have compatibility issues).
+            DSL param: <c>fe-opt</c>.
+            </summary>
+        </member>
+        <member name="T:SeanOne.Alchemy.Builder.FeDictionaryFunc">
+            <summary>
+            Implementation of <c>IDictionaryAlchemyFunction</c> using <c>FeDictParam</c>.
+            Handles dictionary-specific DSL parameters and formatting logic.
+            </summary>
+        </member>
+        <member name="M:SeanOne.Alchemy.Builder.FeDictionaryFunc.#ctor">
+            <summary>
+            初始化，先添加 fe
+            </summary>
+        </member>
+        <member name="M:SeanOne.Alchemy.Builder.FeDictionaryFunc.With(SeanOne.Alchemy.Builder.FeDictParam,System.String)">
+            <summary>
+            Adds a parameter and its associated value to the DSL function.
+            </summary>
+            <param name="param">The DSL parameter to configure.</param>
+            <param name="value">The value associated with the parameter.</param>
+            <returns>The current DSL function instance for chaining.</returns>
+        </member>
+        <member name="M:SeanOne.Alchemy.Builder.FeDictionaryFunc.Build">
+            <summary>
+            Builds the DSL function into a <see cref="T:SeanOne.Alchemy.Builder.AlchemyExecutable"/> instance.
+            </summary>
+            <returns>The constructed <see cref="T:SeanOne.Alchemy.Builder.AlchemyExecutable"/>.</returns>
+        </member>
+        <member name="T:SeanOne.Alchemy.Builder.IAlchemyFunction`1">
+            <summary>
+            Generic base interface for DSL functions.
+            Provides methods to configure parameters and build a DSL executable.
+            </summary>
+            <typeparam name="TParam">The type of parameter used in the DSL function.</typeparam>
+        </member>
+        <member name="M:SeanOne.Alchemy.Builder.IAlchemyFunction`1.With(`0,System.String)">
+            <summary>
+            Adds a parameter and its associated value to the DSL function.
+            </summary>
+            <param name="param">The parameter to configure.</param>
+            <param name="value">The value associated with the parameter.</param>
+            <returns>The current DSL function instance for chaining.</returns>
+        </member>
+        <member name="M:SeanOne.Alchemy.Builder.IAlchemyFunction`1.Build">
+            <summary>
+            Builds the DSL function into an executable instance.
+            </summary>
+            <returns>A <see cref="T:SeanOne.Alchemy.Builder.AlchemyExecutable"/> representing the configured DSL function.</returns>
+        </member>
+        <member name="T:SeanOne.Alchemy.Builder.IBasicAlchemyFunction`1">
+            <summary>
+            DSL function interface for basic operations.
+            Inherits from <see cref="T:SeanOne.Alchemy.Builder.IAlchemyFunction`1"/>.
+            </summary>
+            <typeparam name="TParam">The type of parameter used in the DSL function.</typeparam>
+        </member>
+        <member name="T:SeanOne.Alchemy.Builder.ISequenceAlchemyFunction`1">
+            <summary>
+            DSL function interface for sequence-based operations.
+            Note: Internally relies on the same underlying DSL function <c>fe</c>
+            as <see cref="T:SeanOne.Alchemy.Builder.IDictionaryAlchemyFunction`1"/>, but provided here
+            for semantic distinction.
+            </summary>
+            <typeparam name="TParam">The type of parameter used in the DSL function.</typeparam>
+        </member>
+        <member name="T:SeanOne.Alchemy.Builder.IDictionaryAlchemyFunction`1">
+            <summary>
+            DSL function interface for dictionary-based operations.
+            Note: Internally relies on the same underlying DSL function <c>fe</c>
+            as <see cref="T:SeanOne.Alchemy.Builder.ISequenceAlchemyFunction`1"/>, but provided here
+            for semantic distinction.
+            </summary>
+            <typeparam name="TParam">The type of parameter used in the DSL function.</typeparam>
+        </member>
+        <member name="M:SeanOne.Alchemy.AlchemyConverter.Convert(System.Object,System.String)">
+            <summary>
+            Converts the specified object according to the provided DSL instruction.
+            </summary>
+            <param name="obj">The source object to convert.</param>
+            <param name="dslInstruction">The DSL instruction string.</param>
+            <returns>An <see cref="T:SeanOne.Alchemy.AlchemyResult"/> representing the converted object.</returns>
+        </member>
+        <member name="M:SeanOne.Alchemy.AlchemyConverter.ConvertAsync(System.Object,System.String)">
+            <summary>
+            Asynchronously converts the specified object according to the provided DSL instruction.
+            </summary>
+            <param name="obj">The source object to convert.</param>
+            <param name="dslInstruction">The DSL instruction string.</param>
+            <returns>An <see cref="T:SeanOne.Alchemy.AlchemyResult"/> representing the converted object.</returns>
+        </member>
+        <member name="F:SeanOne.Alchemy.AlchemyConverter.s_ActionsSync">
+            <summary>
+            取得 Convert 相關的同步執行函數字典
+            </summary>
+            <remarks>
+            字典鍵值對應：
+            - "cnv", "convert": 執行 CNV 轉換
+            - "fe", "foreach", "basic": 執行 AlchemyFormatter 格式化
+            </remarks>
+        </member>
+        <member name="F:SeanOne.Alchemy.AlchemyConverter.s_ActionsTemperature">
+            <summary>
+            溫度轉換指令與對應函數的映射字典
+            支援兩種指令格式: 
+            <list type="bullet">
+            <item><description>"XtoY" 格式: 例如 "KtoC" (凱氏轉攝氏)、"FtoC" (華氏轉攝氏)</description></item>
+            <item><description>"X->Y" 格式: 例如 "K->C"、 "F->C"，使用箭頭符號增強可讀性</description></item>
+            </list>
+            </summary>
+            <remarks>
+            字典使用 <see cref="P:System.StringComparer.InvariantCultureIgnoreCase"/> 進行比較，
+            因此指令不區分大小寫 (例如 "ktoC"、"K->c" 皆可正確匹配)
+            </remarks>
+        </member>
+        <member name="M:SeanOne.Alchemy.AlchemyConverter.ConvertTemperature``1(``0,System.String)">
+            <summary>
+            統一泛型入口：轉換溫度數值或清單中的每個元素
+            </summary>
+            <typeparam name="T">輸入的型別，可以是數值型別或實作 IList 的集合型別</typeparam>
+            <param name="input">要轉換的數值或集合</param>
+            <param name="instruction">轉換指令 (例如 "CtoF" 或 "K->C")</param>
+            <returns>
+            若輸入為數值，回傳轉換後的數值 (型別為 T)
+            若輸入為集合，回傳修改後的集合本身 (原地轉換)
+            </returns>
+        </member>
+        <member name="T:SeanOne.Alchemy.Definitions.CommonParams">
+            <summary>
+            提供通用 DSL 參數名稱常數，適用於多種指令與格式化情境
+            </summary>
+        </member>
+        <member name="F:SeanOne.Alchemy.Definitions.CommonParams.Begin">
+            <summary>
+            每個值之前附加的字串
+            DSL 參數: <c>begin</c>
+            </summary>
+        </member>
+        <member name="F:SeanOne.Alchemy.Definitions.CommonParams.End">
+            <summary>
+            每個值之後附加的字串
+            DSL 參數: <c>end</c>
+            </summary>
+        </member>
+        <member name="F:SeanOne.Alchemy.Definitions.CommonParams.Tostring">
+            <summary>
+            套用於實作 <c>IFormattable</c> 之物件的格式字串
+            DSL 參數: <c>tostring</c>
+            </summary>
+        </member>
+        <member name="F:SeanOne.Alchemy.Definitions.CommonParams.Prefix">
+            <summary>
+            整個輸出結果之前附加的前綴字串
+            DSL 參數: <c>prefix</c>
+            </summary>
+        </member>
+        <member name="F:SeanOne.Alchemy.Definitions.CommonParams.Suffix">
+            <summary>
+            整個輸出結果之後附加的後綴字串
+            DSL 參數: <c>suffix</c>
+            </summary>
+        </member>
+        <member name="T:SeanOne.Alchemy.Definitions.FeParams">
+            <summary>
+            提供 FE 指令專用的參數名稱常數
+            </summary>
+        </member>
+        <member name="F:SeanOne.Alchemy.Definitions.FeParams.FeOpt">
+            <summary>
+            啟用最佳化格式化模式 (可能影響相容性)
+            DSL 參數: <c>fe-opt</c>
+            </summary>
+        </member>
+        <member name="T:SeanOne.Alchemy.Definitions.IEnumerableParams">
+            <summary>
+            提供與 <see cref="T:System.Collections.IEnumerable"/> 處理相關的 DSL 參數名稱常數
+            </summary>
+        </member>
+        <member name="F:SeanOne.Alchemy.Definitions.IEnumerableParams.ExcludeLastEnd">
+            <summary>
+            是否排除最後一個項目的 <c>end</c> 字串
+            DSL 參數: <c>exclude-last-end</c>
+            </summary>
+        </member>
+        <member name="F:SeanOne.Alchemy.Definitions.IEnumerableParams.FinalPairSeparator">
+            <summary>
+            用於取代最後兩個項目之間分隔符號的字串 (若未指定則使用 <c>end</c>)
+            DSL 參數: <c>final-pair-separator</c>
+            </summary>
+        </member>
+        <member name="T:SeanOne.Alchemy.Definitions.IDictionaryParams">
+            <summary>
+            提供與 <see cref="T:System.Collections.IDictionary"/> 處理相關的 DSL 參數名稱常數
+            </summary>
+        </member>
+        <member name="F:SeanOne.Alchemy.Definitions.IDictionaryParams.DictFormat">
+            <summary>
+            定義字典項目的格式字串，可使用 <c>{0}</c> 代表索引鍵，<c>{1}</c> 代表值
+            DSL 參數: <c>dict-format</c>
+            </summary>
+        </member>
+        <member name="F:SeanOne.Alchemy.Definitions.IDictionaryParams.KeyFormat">
+            <summary>
+            套用於字典索引鍵的格式字串
+            DSL 參數: <c>key-format</c>
+            </summary>
+        </member>
+        <member name="F:SeanOne.Alchemy.Definitions.IDictionaryParams.ValueFormat">
+            <summary>
+            套用於字典值的格式字串
+            DSL 參數: <c>value-format</c>
+            </summary>
+        </member>
+        <member name="T:SeanOne.Alchemy.Definitions.CnvParams">
+            <summary>
+            提供轉換 (Convert)相關指令的 DSL 參數名稱常數
+            </summary>
+        </member>
+        <member name="F:SeanOne.Alchemy.Definitions.CnvParams.Sort">
+            <summary>
+            指定排序方式或排序參數
+            DSL 參數: <c>sort</c>
+            </summary>
+        </member>
+        <member name="F:SeanOne.Alchemy.Definitions.CnvParams.Temp">
+            <summary>
+            暫時保留的參數，用於過渡或測試用途
+            DSL 參數: <c>temp</c>
+            </summary>
+        </member>
+        <member name="T:SeanOne.Alchemy.Definitions.DslSymbols">
+            <summary>
+            DSL 符號定義類別，集中管理 DSL 語法解析中使用的各種符號常數。
+            </summary>
+        </member>
+        <member name="F:SeanOne.Alchemy.Definitions.DslSymbols.QuoteSymbol">
+            <summary>
+            引號符號，用於包裹字串值，標示其開始與結束。
+            </summary>
+        </member>
+        <member name="F:SeanOne.Alchemy.Definitions.DslSymbols.ParamPrefix">
+            <summary>
+            參數前綴符號，用於標示 DSL 參數的起始。
+            </summary>
+        </member>
+        <member name="F:SeanOne.Alchemy.Definitions.DslSymbols.ParamSeparator">
+            <summary>
+            參數分隔符號，用於分隔參數名稱與其對應的值。
+            </summary>
+        </member>
+        <member name="T:SeanOne.Alchemy.Definitions.DslSyntaxBuilder">
+            <summary>
+            DSL 語法建置工具類別，
+            提供建立參數鍵、添加參數值與符號處理等功能，
+            主要用於 DSL 語法解析的建置過程，並兼具部分通用性。
+            </summary>
+        </member>
+        <member name="M:SeanOne.Alchemy.Definitions.DslSyntaxBuilder.AppendQuoted(System.Text.StringBuilder,System.String)">
+            <summary>
+            新增參數值
+            </summary>
+            <param name="value"> 要添加的值 </param>
+            <param name="sb"> 要修改的 <c>StringBuilder</c> </param>
+        </member>
+        <member name="M:SeanOne.Alchemy.Definitions.DslSyntaxBuilder.AppendParam(System.Text.StringBuilder,System.String)">
+            <summary>
+            新增參數
+            </summary>
+            <param name="param"> 要添加的參數名稱 </param>
+            <param name="sb"> 要修改的 <c>StringBuilder</c> </param>
+        </member>
+        <member name="M:SeanOne.Alchemy.Definitions.DslSyntaxBuilder.EscapeDslValue(System.String)">
+            <summary>
+            將可能導致解析錯誤的字元轉換為安全字元
+            </summary>
+            <param name="value"> 要解析的字串 </param>
+        </member>
+        <member name="M:SeanOne.Alchemy.Definitions.DslSyntaxBuilder.BuildParamKey(System.String)">
+            <summary>
+            建立 DSL 參數鍵
+            </summary>
+            <param name="paramName"> 要建置的字串 </param>
+        </member>
+        <member name="T:SeanOne.Alchemy.Utility.ConvertToUnicode">
+            <summary>
+            將指定輸入轉換成 Unicode 值
+            注意: 部分情況直接使用 C# 數值轉換更快更準，可能看似非標準 Unicode
+            </summary>
+        </member>
+        <member name="M:SeanOne.Alchemy.Utility.ConvertToUnicode.DecodeUnicodeEscapes(System.String)">
+            <summary>
+            將字串中的所有 \uXXXX 轉義序列轉換為其對應的 Unicode 字符
+            </summary>
+            <param name="input"> 要被轉換的字串 </param>
+        </member>
+        <member name="M:SeanOne.Alchemy.Utility.ConvertToUnicode.Unescape(System.String)">
+            <summary>
+            將字串中的所有 \X 轉義序列轉換為其對應的 Unicode 字符
+            </summary>
+            <param name="input"> 要被轉換的字串 </param>
+        </member>
+        <member name="T:SeanOne.Alchemy.Utility.TemperatureConverter">
+            <summary>
+            轉換成不同常見溫標
+            注意: 不用第三方庫是因為這樣能更好的控制變量
+            </summary>
+        </member>
+        <member name="M:SeanOne.Alchemy.Utility.TemperatureConverter.ThrowIfBelowAbsoluteZero(System.Double)">
+            <summary>
+            檢查是否低於絕對零度
+            </summary>
+            <param name="k">凱氏溫度值 (K)</param>
+            <exception cref="T:System.ArgumentException">凱氏溫度值低於絕對零度時拋出</exception>
+        </member>
+        <member name="M:SeanOne.Alchemy.Utility.TemperatureConverter.FtoK(System.Double)">
+            <summary>
+            華氏轉凱氏 (含絕對零度檢查)
+            </summary>
+            <param name="f">華氏溫度值 (F)</param>
+            <returns>凱氏溫度值 (K)</returns>
+            <exception cref="T:System.ArgumentException">轉換結果低於絕對零度時拋出</exception>
+        </member>
+        <member name="M:SeanOne.Alchemy.Utility.TemperatureConverter.FtoC(System.Double)">
+            <summary>
+            華氏轉攝氏 (含絕對零度檢查)
+            </summary>
+            <param name="f">華氏溫度值 (F)</param>
+            <returns>攝氏溫度值 (C)</returns>
+            <exception cref="T:System.ArgumentException">轉換結果低於絕對零度時拋出</exception>
+        </member>
+        <member name="M:SeanOne.Alchemy.Utility.TemperatureConverter.KtoF(System.Double)">
+            <summary>
+            凱氏轉華氏 (含絕對零度檢查)
+            </summary>
+            <param name="k">凱氏溫度值 (K)</param>
+            <returns>華氏溫度值 (F)</returns>
+            <exception cref="T:System.ArgumentException">輸入溫度低於絕對零度時拋出</exception>
+        </member>
+        <member name="M:SeanOne.Alchemy.Utility.TemperatureConverter.KtoC(System.Double)">
+            <summary>
+            凱氏轉攝氏 (含絕對零度檢查)
+            </summary>
+            <param name="k">凱氏溫度值 (K)</param>
+            <returns>攝氏溫度值 (C)</returns>
+            <exception cref="T:System.ArgumentException">輸入溫度低於絕對零度時拋出</exception>
+        </member>
+        <member name="M:SeanOne.Alchemy.Utility.TemperatureConverter.CtoK(System.Double)">
+            <summary>
+            攝氏轉凱氏 (含絕對零度檢查)
+            </summary>
+            <param name="c">攝氏溫度值 (C)</param>
+            <returns>凱氏溫度值 (K)</returns>
+            <exception cref="T:System.ArgumentException">轉換結果低於絕對零度時拋出</exception>
+        </member>
+        <member name="M:SeanOne.Alchemy.Utility.TemperatureConverter.CtoF(System.Double)">
+            <summary>
+            攝氏轉華氏 (含絕對零度檢查)
+            </summary>
+            <param name="c">攝氏溫度值 (C)</param>
+            <returns>華氏溫度值 (F)</returns>
+            <exception cref="T:System.ArgumentException">轉換結果低於絕對零度時拋出</exception>
+        </member>
+        <member name="M:SeanOne.Alchemy.Utility.TemperatureConverter.FtoK_Core(System.Double)">
+            <summary>
+            華氏轉凱氏 (純數學轉換，無檢查)
+            </summary>
+            <param name="f">華氏溫度值 (F)</param>
+            <returns>凱氏溫度值 (K)</returns>
+        </member>
+        <member name="M:SeanOne.Alchemy.Utility.TemperatureConverter.FtoC_Core(System.Double)">
+            <summary>
+            華氏轉攝氏 (純數學轉換，無檢查)
+            </summary>
+            <param name="f">華氏溫度值 (F)</param>
+            <returns>攝氏溫度值 (C)</returns>
+        </member>
+        <member name="M:SeanOne.Alchemy.Utility.TemperatureConverter.KtoF_Core(System.Double)">
+            <summary>
+            凱氏轉華氏 (純數學轉換，無檢查)
+            </summary>
+            <param name="k">凱氏溫度值 (K)</param>
+            <returns>華氏溫度值 (F)</returns>
+        </member>
+        <member name="M:SeanOne.Alchemy.Utility.TemperatureConverter.KtoC_Core(System.Double)">
+            <summary>
+            凱氏轉攝氏 (純數學轉換，無檢查)
+            </summary>
+            <param name="k">凱氏溫度值 (K)</param>
+            <returns>攝氏溫度值 (C)</returns>
+        </member>
+        <member name="M:SeanOne.Alchemy.Utility.TemperatureConverter.CtoK_Core(System.Double)">
+            <summary>
+            攝氏轉凱氏 (純數學轉換，無檢查)
+            </summary>
+            <param name="c">攝氏溫度值 (C)</param>
+            <returns>凱氏溫度值 (K)</returns>
+        </member>
+        <member name="M:SeanOne.Alchemy.Utility.TemperatureConverter.CtoF_Core(System.Double)">
+            <summary>
+            攝氏轉華氏 (純數學轉換，無檢查)
+            </summary>
+            <param name="c">攝氏溫度值 (C)</param>
+            <returns>華氏溫度值 (F)</returns>
+        </member>
+        <member name="T:SeanOne.Alchemy.Utility.ReflectionCloner">
+            <summary>
+            提供物件深度複製 (Deep Clone) 的工具類別
+            使用反射遞迴複製物件，支援陣列與巢狀物件，並避免循環參考
+            </summary>
+        </member>
+        <member name="M:SeanOne.Alchemy.Utility.ReflectionCloner.DeepClone``1(``0)">
+            <summary>
+            深度複製物件
+            </summary>
+            <typeparam name="T"> 物件的型別，不需特別指定，編譯器會自動推斷 </typeparam>
+            <param name="obj"> 要複製的物件 </param>
+            <returns> 複製後的新物件，與原始物件內容相同但為不同參考 </returns>
+        </member>
+        <member name="M:SeanOne.Alchemy.Utility.ReflectionCloner.DeepCloneInternal(System.Object,System.Collections.Generic.IDictionary{System.Object,System.Object})">
+            <summary>
+            深度複製的主體邏輯
+            </summary>
+            <param name="obj"> 要複製的物件 </param>
+            <param name="visited"> 已經複製過的物件，用來避免循環參考 </param>
+            <returns> 複製後的新物件 </returns>
+        </member>
+        <member name="T:SeanOne.Alchemy.Utility.ReflectionCloner.ReferenceEqualityComparer">
+            <summary>
+            用來避免循環參考的比較器
+            使用物件的參考相等性 (ReferenceEquals) 來判斷是否為同一個物件
+            </summary>
+        </member>
+        <member name="M:SeanOne.Alchemy.Utility.ReflectionCloner.ReferenceEqualityComparer.Equals(System.Object,System.Object)">
+            <summary>
+            判斷兩個物件是否為同一個參考
+            </summary>
+            <param name="x"> 物件 A </param>
+            <param name="y"> 物件 B </param>
+            <returns> 若為同一個參考則回傳 true，否則 false </returns>
+        </member>
+        <member name="M:SeanOne.Alchemy.Utility.ReflectionCloner.ReferenceEqualityComparer.GetHashCode(System.Object)">
+            <summary>
+            取得物件的雜湊碼，基於參考而非值
+            </summary>
+            <param name="obj"> 要計算雜湊碼的物件 </param>
+            <returns> 物件的雜湊碼 </returns>
+        </member>
+        <member name="T:SeanOne.Alchemy.Utility.Get">
+            <summary>
+            取得 DSL 指令的值
+            </summary>
+        </member>
+        <member name="M:SeanOne.Alchemy.Utility.Get.ExtractParameterValue(System.String,System.String)">
+            <summary>
+            從 dslInstruction 中提取參數的值
+            </summary>
+            <param name="dslInstruction"> Dsl 指令(要被提取的字串) </param>
+            <param name="parameterName"> 要提取的參數名稱 </param>
+        </member>
+        <member name="M:SeanOne.Alchemy.Utility.Get.ParameterValueOrDefault(System.String,System.String,System.String)">
+            <summary>
+            取得參數值，如果未找到參數或參數為空，則傳回預設值
+            </summary>
+            <param name="dslInstruction"> Dsl 指令(要被提取的字串) </param>
+            <param name="parameterName"> 要提取的參數名稱 </param>
+            <param name="defaultValue"> 預設值 </param>
+        </member>
+        <member name="M:SeanOne.Alchemy.Utility.Get.FindNextTerminator(System.String,System.Int32)">
+            <summary>
+            尋找下一個終止字元（空格或“/”）
+            </summary>
+            <param name="dslInstruction"> Dsl 指令(要被查找的字串) </param>
+            <param name="startIndex"> 開始查找的位置 </param>
+        </member>
+        <member name="M:SeanOne.Alchemy.Utility.Get.ExtractDirective(System.String)">
+            <summary>
+            從 dslInstruction 中提取指令的名稱，最前面的那一個字串
+            </summary>
+            <param name="dslInstruction"> Dsl 指令(要被提取的字串)，但本身必須要被Trim過一遍 </param>
+        </member>
+        <member name="T:SeanOne.Alchemy.Utility.Judge">
+            <summary>
+            判斷 DSL 條件
+            </summary>
+        </member>
+        <member name="M:SeanOne.Alchemy.Utility.Judge.SafeToString(System.Object)">
+            <summary>
+            檢查物件是否實作 IFormattable 介面
+            </summary>
+            <param name="obj"> 要檢查的物件 </param>
+        </member>
+        <member name="M:SeanOne.Alchemy.Utility.Judge.HasString(System.String,System.String)">
+            <summary>
+            檢查 fullStr 是否包含 searchStr
+            </summary>
+            <param name="fullStr"> 被檢查的字串 </param>
+            <param name="searchStr"> 要查詢的字串 </param>
+        </member>
+        <member name="M:SeanOne.Alchemy.Utility.Judge.ValidateSingleParameter(System.String,System.String)">
+            <summary>
+            檢查某個 參數 是否在 dslInstruction 中出現多次
+            </summary>
+            <param name="dslInstruction"> Dsl 指令(要被檢查的字串) </param>
+            <param name="parameterName"> 要查找的參數名稱 </param>
+        </member>
+        <member name="M:SeanOne.Alchemy.Utility.Judge.CountParameterOccurrences(System.String,System.String)">
+            <summary>
+            計算 參數 在 dslInstruction 中出現的次數 (使用正則表達式)
+            </summary>
+            <param name="dslInstruction"> Dsl 指令(要被檢查的字串) </param>
+            <param name="parameterName"> 要查找的參數名稱 </param>
+        </member>
+        <member name="M:SeanOne.Alchemy.Utility.Judge.ValidateCodeParameters(System.String,System.String,System.Collections.Generic.List{System.String}@)">
+            <summary>
+            根據方法類型驗證參數
+            </summary>
+            <param name="dslInstruction"> Dsl 指令(要被檢查的字串) </param>
+            <param name="methodType"> 方法類型(用字串表示) </param>
+            <param name="invalidParams"> 要回傳的無效參數列表 </param>
+        </member>
+        <member name="M:SeanOne.Alchemy.Utility.Judge.ValidateCodeParametersAuto(System.String,System.Type,System.Collections.Generic.List{System.String}@)">
+            <summary>
+            自動偵測方法類型並驗證參數
+            </summary>
+            <param name="dslInstruction"> Dsl 指令(要被檢查的字串) </param>
+            <param name="objectType"> 方法類型(用類型表示) </param>
+            <param name="invalidParams"> 要回傳的無效參數列表 </param>
+        </member>
+        <member name="M:SeanOne.Alchemy.Utility.Judge.DetermineMethodType(System.Type)">
+            <summary>
+            根據物件類型自動判斷應該使用的方法
+            </summary>
+            <param name="objectType"> 要判斷的物件類型 </param>
+        </member>
+        <member name="T:SeanOne.Alchemy.AlchemyFormatter">
+            <summary>
+            Transforms objects into formatted strings using a simple DSL syntax.
+            </summary>
+        </member>
+        <member name="M:SeanOne.Alchemy.AlchemyFormatter.Format(System.Object,System.String)">
+            <summary>
+            Formats the specified object according to the provided DSL instruction.
+            </summary>
+            <param name="obj">The object to format.</param>
+            <param name="dslInstruction">The DSL instruction string.</param>
+            <returns>The formatted string.</returns>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when <paramref name="obj"/> is null or <paramref name="dslInstruction"/> is null or empty.
+            </exception>
+        </member>
+        <member name="M:SeanOne.Alchemy.AlchemyFormatter.FormatAsync(System.Object,System.String)">
+            <summary>
+            Asynchronously formats the specified object according to the provided DSL instruction.
+            </summary>
+            <param name="obj">The object to format.</param>
+            <param name="dslInstruction">The DSL instruction string.</param>
+            <returns>A task representing the asynchronous operation.</returns>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when <paramref name="obj"/> is null or <paramref name="dslInstruction"/> is null or empty.
+            </exception>
+        </member>
+        <member name="M:SeanOne.Alchemy.AlchemyFormatter.Decoder(System.Object,System.String)">
+            <summary>
+            解碼並選擇適當的方法
+            </summary>
+            <param name="obj"> 目標物件 </param>
+            <param name="dslInstruction"> Dsl 指令 </param>
+        </member>
+        <member name="M:SeanOne.Alchemy.AlchemyFormatter.FE(System.Object,System.String,System.String)">
+            <summary>
+            將 IEnumerable 轉換為字串
+            </summary>
+            <param name="obj"> 目標物件 </param>
+            <param name="dslInstruction"> Dsl 指令 </param>
+            <param name="commandName"> 呼叫時的指令名稱(僅用做 throw 時) </param>
+        </member>
+        <member name="M:SeanOne.Alchemy.AlchemyFormatter.FE_ProcessDictionary(System.Collections.IDictionary,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            處理字典集合
+            </summary>
+            <param name="dictionary"> 目標字典 </param>
+            <param name="dictFormat"> 字典格式 </param>
+            <param name="keyFormat"> 字典的鍵格式 </param>
+            <param name="valueFormat"> 字典的值格式 </param>
+            <param name="begin"> 每次跌代前加的字串</param>
+            <param name="end"> 每次跌代後加的字串(如果是倒數第二個且 final_pair_separator 為空字串，或是最後一個且 exclude_last_end 為 true，則不加) </param>
+            <param name="final_pair_separator"> 用於倒數第二個與最後一個項目之間的連接字串 </param>
+            <param name="prefix"> 最前面的前綴，會加在整個字典處理結果的開頭(即使字典為空也會添加) </param>
+            <param name="suffix"> 最後面的後綴，會加在整個字典處理結果的結尾(即使字典為空也會添加) </param>
+            <param name="exclude_last_end"> 是否排除最後一個項目的 end 字串 </param>
+        </member>
+        <member name="M:SeanOne.Alchemy.AlchemyFormatter.FE_ProcessDictionary_Optimized(System.Collections.IDictionary,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            處理字典集合 (優化過後)
+            </summary>
+            <param name="dictionary"> 目標字典 </param>
+            <param name="dictFormat"> 字典格式 </param>
+            <param name="keyFormat"> 字典的鍵格式 </param>
+            <param name="valueFormat"> 字典的值格式 </param>
+            <param name="begin"> 每次跌代前加的字串</param>
+            <param name="end"> 每次跌代後加的字串(如果是倒數第二個且 final_pair_separator 為空字串，或是最後一個且 exclude_last_end 為 true，則不加) </param>
+            <param name="final_pair_separator"> 用於倒數第二個與最後一個項目之間的連接字串 </param>
+            <param name="prefix"> 最前面的前綴，會加在整個字典處理結果的開頭(即使字典為空也會添加) </param>
+            <param name="suffix"> 最後面的後綴，會加在整個字典處理結果的結尾(即使字典為空也會添加) </param>
+            <param name="exclude_last_end"> 是否排除最後一個項目的 end 字串 </param>
+        </member>
+        <member name="M:SeanOne.Alchemy.AlchemyFormatter.FE_ProcessEnumerable(System.Collections.IEnumerable,System.String,System.String,System.String,System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            處理普通集合
+            </summary>
+            <param name="enumerable"> 目標集合 </param>
+            <param name="format"> 指定集合的格式化方式 </param>
+            <param name="begin"> 每次跌代前加的字串</param>
+            <param name="end"> 每次跌代後加的字串(如果是倒數第二個且 final_pair_separator 為空字串，或是最後一個且 exclude_last_end 為 true，則不加) </param>
+            <param name="final_pair_separator"> 用於倒數第二個與最後一個項目之間的連接字串 </param>
+            <param name="prefix"> 最前面的前綴，會加在整個集合處理結果的開頭(即使集合為空也會添加) </param>
+            <param name="suffix"> 最後面的後綴，會加在整個集合處理結果的結尾(即使集合為空也會添加) </param>
+            <param name="exclude_last_end"> 是否排除最後一個項目的 end 字串 </param>
+        </member>
+        <member name="M:SeanOne.Alchemy.AlchemyFormatter.FE_ProcessEnumerable_Optimized(System.Collections.IEnumerable,System.String,System.String,System.String,System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            處理普通集合 (優化過後)
+            </summary>
+            <param name="enumerable"> 目標集合 </param>
+            <param name="format"> 指定集合的格式化方式 </param>
+            <param name="begin"> 每次跌代前加的字串</param>
+            <param name="end"> 每次跌代後加的字串(如果是倒數第二個且 final_pair_separator 為空字串，或是最後一個且 exclude_last_end 為 true，則不加) </param>
+            <param name="final_pair_separator"> 用於倒數第二個與最後一個項目之間的連接字串 </param>
+            <param name="prefix"> 最前面的前綴，會加在整個字典處理結果的開頭(即使字典為空也會添加) </param>
+            <param name="suffix"> 最後面的後綴，會加在整個字典處理結果的結尾(即使字典為空也會添加) </param>
+            <param name="exclude_last_end"> 是否排除最後一個項目的 end 字串 </param>
+        </member>
+        <member name="M:SeanOne.Alchemy.AlchemyFormatter.Basic(System.Object,System.String)">
+            <summary>
+            處理單個對象的格式化 (非同步)
+            </summary>
+            <param name="obj"> 目標物件 </param>
+            <param name="dslInstruction"> Dsl 指令 </param>
+        </member>
+        <member name="F:SeanOne.Alchemy.AlchemyFormatter.s_ActionsSync">
+            <summary>
+            取得 Format 相關的同步執行函數字典
+            </summary>
+            <remarks>
+            字典鍵值對應：
+            - "fe", "foreach": 執行 FE 函數（帶對應的類型參數）
+            - "basic": 執行 Basic 函數
+            </remarks>
+        </member>
+        <member name="M:SeanOne.Alchemy.AlchemyFormatter.ValidateEnumerableFormattable(System.Collections.IEnumerable,System.String)">
+            <summary>
+            驗證集合元素是否可格式化
+            </summary>
+            <param name="enumerable"> 要檢查的集合 </param>
+            <param name="format"> 格式化字串(目前沒用) </param>
+        </member>
+        <member name="M:SeanOne.Alchemy.AlchemyFormatter.FormatObject(System.Object,System.String)">
+            <summary>
+            格式化對象 (需支持 IFormattable)
+            </summary>
+            <param name="obj"> 要格式化的對象 </param>
+            <param name="format"> 格式化字串 </param>
+        </member>
+        <member name="M:SeanOne.Alchemy.AlchemyFormatter.Dict_Format(System.String,System.String,System.String)">
+            <summary>
+            格式化字典
+            </summary>
+            <param name="format"> 格式化字串 </param>
+            <param name="key"> 鍵 </param>
+            <param name="value"> 值 </param>
+        </member>
+        <member name="M:SeanOne.Alchemy.AlchemyResult.Convert(System.String)">
+            <summary>
+            Converts the current source object according to the provided DSL instruction.
+            </summary>
+            <param name="dslInstruction">The DSL instruction string.</param>
+            <returns>An <see cref="T:SeanOne.Alchemy.AlchemyResult"/> representing the converted object.</returns>
+        </member>
+        <member name="M:SeanOne.Alchemy.AlchemyResult.ConvertAsync(System.String)">
+            <summary>
+            Asynchronously converts the specified object according to the provided DSL instruction.
+            </summary>
+            <param name="dslInstruction">The DSL instruction string.</param>
+            <returns>An <see cref="T:SeanOne.Alchemy.AlchemyResult"/> representing the converted object.</returns>
+        </member>
+        <member name="M:SeanOne.Alchemy.AlchemyResult.Parse(System.Object)">
+            <summary>
+            Creates a new instance of the AlchemyResult class from the specified object.
+            </summary>
+            <param name="sourceObj">The source object to wrap in an AlchemyResult.</param>
+            <returns>A new AlchemyResult instance that represents the specified object.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="sourceObj"/> is null.</exception>
+        </member>
+        <member name="M:SeanOne.Alchemy.AlchemyResult.TryParse(System.Object,SeanOne.Alchemy.AlchemyResult@)">
+            <summary>
+            Attempts to convert the specified object to an AlchemyResult without throwing an exception.
+            </summary>
+            <param name="sourceObj">The source object to wrap in an AlchemyResult. This parameter can be null.</param>
+            <param name="result">When this method returns, contains the AlchemyResult representation of the object if the conversion succeeded; otherwise, null.</param>
+            <returns>true if the object was successfully converted to an AlchemyResult; otherwise, false.</returns>
+        </member>
+        <member name="M:SeanOne.Alchemy.AlchemyConverterExpansions.GetList``1(SeanOne.Alchemy.AlchemyResult,System.Func{System.Object,System.Int32,``0})">
+            <summary>
+            將結果中的集合轉換為 List，使用自訂的轉換器。 
+            </summary>
+            <typeparam name="T">目標元素類型</typeparam>
+            <param name="result">AlchemyResult 實例</param>
+            <param name="converter">轉換委託，接收元素物件和索引，傳回轉換後的 T</param>
+            <returns>轉換後的 List</returns>
+        </member>
+        <member name="T:SeanOne.Alchemy.AlchemyResultTaskExtensions">
+            <summary>
+            Provides extension methods for the <see cref="T:SeanOne.Alchemy.AlchemyResult"/> class.
+            </summary>
+        </member>
+        <member name="M:SeanOne.Alchemy.AlchemyResultTaskExtensions.ConvertAsync(System.Threading.Tasks.Task{SeanOne.Alchemy.AlchemyResult},System.String)">
+            <summary>
+            Asynchronously converts the specified object according to the provided DSL instruction.
+            </summary>
+            <param name="task">The task that contains the source object to convert.</param>
+            <param name="dslInstruction">The DSL instruction string.</param>
+            <returns>An <see cref="T:SeanOne.Alchemy.AlchemyResult"/> representing the converted object.</returns>
+        </member>
+        <member name="M:SeanOne.Alchemy.AlchemyResultTaskExtensions.ToObjectAsync``1(System.Threading.Tasks.Task{SeanOne.Alchemy.AlchemyResult})">
+            轉換為對象 (非同步版本)
+        </member>
+        <member name="M:SeanOne.Alchemy.Sorting.Sort.Entry``1(``0,System.String)">
+            <summary>
+            排序入口方法，根據傳入的指令對物件進行排序
+            </summary>
+            <typeparam name="T"> 物件的型別，實際上未使用，僅用於泛型推斷 </typeparam>
+            <param name="obj"> 要排序的物件</param>
+            <param name="ins"> 排序指令字串 </param>
+        </member>
+        <member name="T:SeanOne.Alchemy.Sorting.SortCommands">
+            <summary>
+            提供排序命令的靜態映射，將命令字串與具體的排序實作連結
+            </summary>
+        </member>
+        <member name="F:SeanOne.Alchemy.Sorting.SortCommands.s_ListSorterActions">
+            <summary>
+            存放所有 IList 可以成功排序的參數
+            鍵 (Key) 為命令字串 (如 "bs", "bubble")
+            值 (Value) 為對應的排序動作委託，接受 IList 參數並直接修改該清單
+            </summary>
+            <remarks>
+            所有命令字串均不區分大小寫，建議使用小寫以保持一致
+            </remarks>
+        </member>
+        <member name="M:SeanOne.Alchemy.Sorting.SortExpansions.Swap(System.Collections.IList,System.Int32,System.Boolean@)">
+            <summary>
+            交換 <see cref="T:System.Collections.IList"/> 中指定索引與前一個索引的元素，並將 <paramref name="swapped"/> 設為 true
+            </summary>
+            <param name="list"> 要進行交換的 <see cref="T:System.Collections.IList"/> 集合 </param>
+            <param name="index"> 要交換的後一個元素索引 (與索引 index-1 的元素交換) </param>
+            <param name="swapped"> 參考的布林值，方法執行後會被設為 true，表示交換已發生  </param>
+            <remarks>
+            此方法假設 <paramref name="index"/> 大於等於 1 且小於 <paramref name="list"/> 的 Count，呼叫者需確保索引有效
+            主要用於排序演算法 (如氣泡排序) 內部，以簡化交換邏輯
+            </remarks>
+        </member>
+    </members>
+</doc>
