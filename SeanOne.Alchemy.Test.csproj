@@ -7,4 +7,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Reference Include="SeanOne.Alchemy">
+      <HintPath>mod\SeanOne.Alchemy.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

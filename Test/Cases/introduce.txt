@@ -1,0 +1,3 @@
+This folder contains individual test case implementations.
+Each file inside represents a specific test that implements the ITest interface.
+Add new test cases here to be discovered and executed by TestFactory.
