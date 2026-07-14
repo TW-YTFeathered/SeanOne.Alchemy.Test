@@ -11,9 +11,8 @@ namespace SeanOne.Alchemy.Test.Cases.Error
             ins = "fe /value-format:F0";
         }
 
-        public string Run()
-        {
-            return AlchemyFormatter.Format(x, ins);
-        }
+        public string Run() => Alchemy.Format(x, ins);
+
+        public string GetAnswer() => "";
     }
 }

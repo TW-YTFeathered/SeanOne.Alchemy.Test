@@ -11,9 +11,8 @@ namespace SeanOne.Alchemy.Test.Cases.Basic
             ins = "/prefix:[ /end:! /suffix:] /tostring:F2";
         }
 
-        public string Run()
-        {
-            return AlchemyFormatter.Format(x, ins);
-        }
+        public string Run() => Alchemy.Format(x, ins);
+
+        public string GetAnswer() => "[5.00!]";
     }
 }

@@ -11,9 +11,8 @@ namespace SeanOne.Alchemy.Test.Cases.FeSeq
             ins = "fe /suffix:]";
         }
 
-        public string Run()
-        {
-            return AlchemyFormatter.Format(x, ins);
-        }
+        public string Run() => Alchemy.Format(x, ins);
+
+        public string GetAnswer() => "12345678910]";
     }
 }

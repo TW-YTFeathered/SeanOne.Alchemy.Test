@@ -17,9 +17,8 @@ namespace SeanOne.Alchemy.Test.Cases.FluentApi
                 .With(BasicParam.End, "!");
         }
 
-        public string Run()
-        {
-            return ins.BuildRun(x);
-        }
+        public string Run() => ins.BuildRun(x);
+
+        public string GetAnswer() => "[5.00!]";
     }
 }

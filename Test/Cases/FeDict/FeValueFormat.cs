@@ -12,9 +12,8 @@ namespace SeanOne.Alchemy.Test.Cases.FeDict
             ins = "fe /dict-format:{1} /value-format:F2";
         }
 
-        public string Run()
-        {
-            return AlchemyFormatter.Format(x, ins);
-        }
+        public string Run() => Alchemy.Format(x, ins);
+
+        public string GetAnswer() => "1.004.009.0016.0025.0036.0049.0064.0081.00100.00";
     }
 }

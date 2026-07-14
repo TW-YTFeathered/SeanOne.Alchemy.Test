@@ -11,9 +11,8 @@ namespace SeanOne.Alchemy.Test.Cases.Error
             ins = "fe /ts:F2";
         }
 
-        public string Run()
-        {
-            return AlchemyFormatter.Format(x, ins);
-        }
+        public string Run() => Alchemy.Format(x, ins);
+
+        public string GetAnswer() => "";
     }
 }

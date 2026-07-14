@@ -20,9 +20,8 @@ namespace SeanOne.Alchemy.Test.Cases.FluentApi
                 .With(FeSeqParam.FeOpt, true.ToString());
         }
 
-        public string Run()
-        {
-            return ins.BuildRun(x);
-        }
+        public string Run() => ins.BuildRun(x);
+
+        public string GetAnswer() => "[1.00, 2.00, 3.00, 4.00, 5.00, 6.00, 7.00, 8.00, 9.00 and 10.00]";
     }
 }

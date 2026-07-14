@@ -1,11 +1,6 @@
-//#define ShowClassAndNamespace
-
-#if ShowClassAndNamespace
-// If ShowClassAndNamespace is defined, it will directly display Class + Namespace.
-#else
-// If ShowClassAndNamespace is not defined, display Result
+#define ShowClassAndNamespace
 #define ShowResult
-#endif
+#define ShowIsCorrect
 
 namespace SeanOne.Alchemy.Test
 {
@@ -63,6 +58,14 @@ namespace SeanOne.Alchemy.Test
                     string msg = test.Run();
                     Print(ConsoleColor.Green, $"Result: {msg}");
 #endif
+#if ShowIsCorrect
+                    bool isCorrect = test.Run().Equals(test.GetAnswer());
+
+                    if (isCorrect)
+                        Print(ConsoleColor.Green, $"{test.GetType().Name}: Correct");
+                    else
+                        Print(ConsoleColor.Red, $"{test.GetType().Name}: Incorrect");
+#endif
                 }
                 catch (Exception ex)
                 {
@@ -78,9 +81,7 @@ namespace SeanOne.Alchemy.Test
         static void Print(params string[] msgs)
         {
             foreach (var m in msgs)
-            {
                 Console.WriteLine(m);
-            }
             Console.WriteLine();
         }
 
@@ -93,9 +94,7 @@ namespace SeanOne.Alchemy.Test
         {
             Console.ForegroundColor = color;
             foreach (var m in msgs)
-            {
                 Console.WriteLine(m);
-            }
             Console.WriteLine();
             Console.ResetColor();
         }

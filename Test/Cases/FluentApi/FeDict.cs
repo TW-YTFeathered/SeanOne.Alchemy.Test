@@ -22,9 +22,8 @@ namespace SeanOne.Alchemy.Test.Cases.FluentApi
                 .With(FeDictParam.FeOpt, true.ToString());
         }
 
-        public string Run()
-        {
-            return ins.BuildRun(x);
-        }
+        public string Run() => ins.BuildRun(x);
+
+        public string GetAnswer() => "[001=>1.00, 002=>4.00, 003=>9.00, 004=>16.00, 005=>25.00, 006=>36.00, 007=>49.00, 008=>64.00, 009=>81.00 and 010=>100.00]";
     }
 }
