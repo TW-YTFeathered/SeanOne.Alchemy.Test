@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using System.Linq;
+
 namespace SeanOne.Alchemy.Test.Cases.Error
 {
     public class NoDictFormat : ITest

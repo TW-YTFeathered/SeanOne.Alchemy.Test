@@ -1,6 +1,23 @@
 using SeanOne.Alchemy.Test;
+using System;
 using System.Globalization;
+using System.Runtime.InteropServices;
 
-CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("en-US");
+namespace SeanOne.Alchemy.Test
+{
+    static class Program
+    {
+        static void Main()
+        {
+            CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("en-US");
 
-TestFactory.RunTest();
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine($"Runtime version: {RuntimeInformation.FrameworkDescription}");
+            Console.ResetColor();
+
+            TestFactory.RunTest();
+
+            Console.ReadKey();
+        }
+    }
+}

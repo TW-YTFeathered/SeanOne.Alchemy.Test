@@ -2,6 +2,11 @@
 #define ShowResult
 #define ShowIsCorrect
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
 namespace SeanOne.Alchemy.Test
 {
     static class TestFactory
@@ -9,7 +14,7 @@ namespace SeanOne.Alchemy.Test
         /// <summary>
         /// List of all tests
         /// </summary>
-        static List<ITest> Tests = new();
+        static List<ITest> Tests = new List<ITest>();
 
         /// <summary>
         /// Init Tests List
@@ -44,7 +49,7 @@ namespace SeanOne.Alchemy.Test
         {
             foreach (var test in Tests)
             {
-                List<string> output = new();
+                var output = new List<string>();
                 ConsoleColor color = ConsoleColor.White;
 
                 try
@@ -55,7 +60,8 @@ namespace SeanOne.Alchemy.Test
                     Task.Delay(200).Wait();
 
 #if ShowClassAndNamespace
-                    output.AddRange($"Namespace: {test.GetType().Namespace}", $"Class: {test.GetType().Name}");
+                    output.Add($"Namespace: {test.GetType().Namespace}");
+                    output.Add($"Class: {test.GetType().Name}");
 #endif
 #if ShowResult
                     string msg = test.Run();

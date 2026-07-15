@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace SeanOne.Alchemy.Test.Cases.Error
 {
     public class DictIsNull : ITest

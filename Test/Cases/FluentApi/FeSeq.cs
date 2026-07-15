@@ -1,4 +1,6 @@
 using SeanOne.Alchemy.Builder;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SeanOne.Alchemy.Test.Cases.FluentApi
 {
@@ -6,7 +8,7 @@ namespace SeanOne.Alchemy.Test.Cases.FluentApi
     {
         List<int> x;
         IAlchemyFunction<FeSeqParam> ins;
-        
+
         public void Setup()
         {
             x = Enumerable.Range(1, 10).ToList();

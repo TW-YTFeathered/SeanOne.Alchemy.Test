@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SeanOne.Alchemy.Test.Cases.FeDict
 {
@@ -12,7 +14,7 @@ namespace SeanOne.Alchemy.Test.Cases.FeDict
             ins = "fe /dict-format:{0} /key-format:F2";
         }
 
-        public string Run() =>Alchemy.Format(x, ins);
+        public string Run() => Alchemy.Format(x, ins);
 
         public string GetAnswer() => "1.002.003.004.005.006.007.008.009.0010.00";
     }

@@ -1,3 +1,5 @@
+using System;
+
 namespace SeanOne.Alchemy.Test.Cases.Utility
 {
     public class ConvertToEscapeChar : ITest

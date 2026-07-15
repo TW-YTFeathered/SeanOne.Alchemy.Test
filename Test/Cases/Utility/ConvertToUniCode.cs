@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Text;
 
 namespace SeanOne.Alchemy.Test.Cases.Utility
@@ -12,7 +13,7 @@ namespace SeanOne.Alchemy.Test.Cases.Utility
             x = 5;
 
             ins = "/end:";
-            StringBuilder sb = new();
+            var sb = new StringBuilder();
             foreach (var v in Enumerable.Range(32, 95))
             {
                 sb.Append($"\\u{v:X4}");

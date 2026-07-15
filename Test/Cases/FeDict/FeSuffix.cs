@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using System.Linq;
+
 namespace SeanOne.Alchemy.Test.Cases.FeDict
 {
     public class FeSuffix : ITest

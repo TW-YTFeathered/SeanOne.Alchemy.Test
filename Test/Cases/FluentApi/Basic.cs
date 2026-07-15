@@ -6,7 +6,7 @@ namespace SeanOne.Alchemy.Test.Cases.FluentApi
     {
         int x;
         IAlchemyFunction<BasicParam> ins;
-        
+
         public void Setup()
         {
             x = 5;

@@ -1,3 +1,6 @@
+using System.Linq;
+using System.Collections.Generic;
+
 namespace SeanOne.Alchemy.Test.Cases.FeSeq
 {
     public class FeFeOpt : ITest

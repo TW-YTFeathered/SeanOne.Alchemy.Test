@@ -1,4 +1,6 @@
 using SeanOne.Alchemy.Builder;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SeanOne.Alchemy.Test.Cases.FluentApi
 {
@@ -6,7 +8,7 @@ namespace SeanOne.Alchemy.Test.Cases.FluentApi
     {
         Dictionary<int, int> x;
         IAlchemyFunction<FeDictParam> ins;
-        
+
         public void Setup()
         {
             x = Enumerable.Range(1, 10).ToDictionary(x => x, x => x * x);
