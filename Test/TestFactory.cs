@@ -44,6 +44,9 @@ namespace SeanOne.Alchemy.Test
         {
             foreach (var test in Tests)
             {
+                List<string> output = new();
+                ConsoleColor color = ConsoleColor.White;
+
                 try
                 {
                     test.Setup();
@@ -52,24 +55,35 @@ namespace SeanOne.Alchemy.Test
                     Task.Delay(200).Wait();
 
 #if ShowClassAndNamespace
-                    Print(ConsoleColor.Green, $"Namespace: {test.GetType().Namespace}", $"Clss: {test.GetType().Name}");
+                    output.AddRange($"Namespace: {test.GetType().Namespace}", $"Class: {test.GetType().Name}");
 #endif
 #if ShowResult
                     string msg = test.Run();
-                    Print(ConsoleColor.Green, $"Result: {msg}");
+                    output.Add($"Result: {msg}");
 #endif
 #if ShowIsCorrect
                     bool isCorrect = test.Run().Equals(test.GetAnswer());
 
                     if (isCorrect)
-                        Print(ConsoleColor.Green, $"{test.GetType().Name}: Correct");
+                    {
+                        output.Add($"{test.GetType().Name}: Correct");
+                        color = ConsoleColor.Green;
+                    }
                     else
-                        Print(ConsoleColor.Red, $"{test.GetType().Name}: Incorrect");
+                    {
+                        output.Add($"{test.GetType().Name}: Incorrect");
+                        color = ConsoleColor.Red;
+                    }
 #endif
                 }
                 catch (Exception ex)
                 {
-                    Print(ConsoleColor.Red, $"Error: {ex.Message}");
+                    output.Add($"Error: {ex.Message}");
+                    color = ConsoleColor.Red;
+                }
+                finally
+                {
+                    Print(color, output.ToArray());
                 }
             }
         }
@@ -93,9 +107,7 @@ namespace SeanOne.Alchemy.Test
         static void Print(ConsoleColor color, params string[] msgs)
         {
             Console.ForegroundColor = color;
-            foreach (var m in msgs)
-                Console.WriteLine(m);
-            Console.WriteLine();
+            Print(msgs);
             Console.ResetColor();
         }
     }
