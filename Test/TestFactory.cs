@@ -5,7 +5,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Threading;
 
 namespace SeanOne.Alchemy.Test
 {
@@ -42,13 +42,27 @@ namespace SeanOne.Alchemy.Test
             }
         }
 
+        public static int RunCount { get; private set; }
+        public static int CorrectCount { get; private set; }
+        public static int IncorrectCount { get; private set; }
+        public static int ErrorCount { get; private set; }
+
         /// <summary>
         /// Run all tests
         /// </summary>
         public static void RunTest()
         {
+            CorrectCount = 0;
+            IncorrectCount = 0;
+            ErrorCount = 0;
+            RunCount = 0;
+
             foreach (var test in Tests)
             {
+                // Initialize the state for this test run
+                bool isCorrect = false;
+                bool isError = false;
+
                 var output = new List<string>();
                 ConsoleColor color = ConsoleColor.White;
 
@@ -57,19 +71,21 @@ namespace SeanOne.Alchemy.Test
                     test.Setup();
 
                     // Delay to allow the test to setup
-                    Task.Delay(200).Wait();
+                    Thread.Sleep(200);
 
 #if ShowClassAndNamespace
                     output.Add($"Namespace: {test.GetType().Namespace}");
                     output.Add($"Class: {test.GetType().Name}");
 #endif
-#if ShowResult
-                    string msg = test.Run();
-                    output.Add($"Result: {msg}");
-#endif
-#if ShowIsCorrect
-                    bool isCorrect = test.Run().Equals(test.GetAnswer());
 
+                    string runResult = test.Run();
+                    isCorrect = runResult != null && runResult.Equals(test.GetAnswer());
+
+#if ShowResult
+                    output.Add($"Result: {runResult}");
+#endif
+
+#if ShowIsCorrect
                     if (isCorrect)
                     {
                         output.Add($"{test.GetType().Name}: Correct");
@@ -84,11 +100,20 @@ namespace SeanOne.Alchemy.Test
                 }
                 catch (Exception ex)
                 {
+                    isError = true;
                     output.Add($"Error: {ex.Message}");
                     color = ConsoleColor.Red;
                 }
                 finally
                 {
+                    if (isError)
+                        ErrorCount++;
+                    else if (isCorrect)
+                        CorrectCount++;
+                    else
+                        IncorrectCount++;
+                    RunCount++;
+
                     Print(color, output.ToArray());
                 }
             }

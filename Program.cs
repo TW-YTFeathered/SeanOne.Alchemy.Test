@@ -1,7 +1,8 @@
-using SeanOne.Alchemy.Test;
 using System;
 using System.Globalization;
+using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Runtime.Versioning;
 
 namespace SeanOne.Alchemy.Test
 {
@@ -11,13 +12,30 @@ namespace SeanOne.Alchemy.Test
         {
             CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("en-US");
 
-            Console.ForegroundColor = ConsoleColor.Blue;
-            Console.WriteLine($"Runtime version: {RuntimeInformation.FrameworkDescription}");
-            Console.ResetColor();
+            DisplayRuntimeVersion();
 
             TestFactory.RunTest();
 
+            Console.WriteLine($"Test count: {TestFactory.RunCount}, " +
+                              $"Correct: {TestFactory.CorrectCount}, " +
+                              $"Incorrect: {TestFactory.IncorrectCount}, " +
+                              $"Error: {TestFactory.ErrorCount}");
+
             Console.ReadKey();
+        }
+
+        static void DisplayRuntimeVersion()
+        {
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine($"Runtime version: {RuntimeInformation.FrameworkDescription}");
+
+            var assembly = typeof(Alchemy).Assembly;
+            var targetFrameworkAttr = assembly.GetCustomAttribute<TargetFrameworkAttribute>();
+            string targetFramework = targetFrameworkAttr?.FrameworkName ?? "Unknown";
+
+            Console.WriteLine($"Nuget package version: {targetFramework}");
+            Console.WriteLine();
+            Console.ResetColor();
         }
     }
 }
