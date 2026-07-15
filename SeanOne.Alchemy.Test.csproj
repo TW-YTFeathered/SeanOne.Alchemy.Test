@@ -1,16 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>net10.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFrameworks>net472;net48;net6.0;net8.0;net9.0;net10.0</TargetFrameworks>
 
-  <ItemGroup>
-    <Reference Include="SeanOne.Alchemy">
-      <HintPath>mod\SeanOne.Alchemy.dll</HintPath>
-    </Reference>
-  </ItemGroup>
+		<!-- 啟用 Nullable 支援（建議搭配下面的 LangVersion 確保舊框架編譯器看得懂） -->
+		<Nullable>enable</Nullable>
+		<LangVersion>latest</LangVersion>
+
+		<ImplicitUsings Condition="'$(TargetFramework)' != 'net472' And '$(TargetFramework)' != 'net48'">enable</ImplicitUsings>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="SeanOne.Alchemy" Version="3.0.0-preview.3" />
+	</ItemGroup>
 
 </Project>
