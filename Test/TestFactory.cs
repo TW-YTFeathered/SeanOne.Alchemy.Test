@@ -42,10 +42,11 @@ namespace SeanOne.Alchemy.Test
             }
         }
 
-        public static int RunCount { get; private set; }
-        public static int CorrectCount { get; private set; }
-        public static int IncorrectCount { get; private set; }
-        public static int ErrorCount { get; private set; }
+        public static int RunCount { get; private set; } = 0;
+        public static int CorrectCount { get; private set; } = 0;
+        public static int IncorrectCount { get; private set; } = 0;
+        public static int ErrorCount { get; private set; } = 0;
+        public static bool EnableDisplayDelay { get; set; } = true;
 
         /// <summary>
         /// Run all tests
@@ -69,9 +70,6 @@ namespace SeanOne.Alchemy.Test
                 try
                 {
                     test.Setup();
-
-                    // Delay to allow the test to setup
-                    Thread.Sleep(200);
 
 #if ShowClassAndNamespace
                     output.Add($"Namespace: {test.GetType().Namespace}");
@@ -115,6 +113,9 @@ namespace SeanOne.Alchemy.Test
                     RunCount++;
 
                     Print(color, output.ToArray());
+
+                    if (EnableDisplayDelay)
+                        Thread.Sleep(200);
                 }
             }
         }

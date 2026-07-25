@@ -10,10 +10,13 @@ namespace SeanOne.Alchemy.Test
     {
         static void Main()
         {
+            bool isInteractive = !Console.IsInputRedirected && !Console.IsOutputRedirected;
+
             CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("en-US");
 
             DisplayRuntimeVersion();
 
+            TestFactory.EnableDisplayDelay = isInteractive;
             TestFactory.RunTest();
 
             Console.WriteLine($"Test count: {TestFactory.RunCount}, " +
@@ -21,8 +24,12 @@ namespace SeanOne.Alchemy.Test
                               $"Incorrect: {TestFactory.IncorrectCount}, " +
                               $"Error: {TestFactory.ErrorCount}");
 
-            if (!Console.IsInputRedirected && !Console.IsOutputRedirected)
+            if (isInteractive)
+            {
+                Console.WriteLine();
+                Console.WriteLine("Press any key to continue...");
                 Console.ReadKey();
+            }
         }
 
         static void DisplayRuntimeVersion()
