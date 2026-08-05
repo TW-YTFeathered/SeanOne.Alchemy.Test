@@ -11,13 +11,32 @@ namespace SeanOne.Alchemy.Test.Cases.Sort
         ) { }
     }
 
-    public class SortAS_Ascending : SortTestBase
+    public class SortASD_Empty : SortTestBase
     {
-        public SortAS_Ascending() : base(
+        public SortASD_Empty() : base(
+            input: new List<int>(),
+            expected: new List<int>(),
+            instruction: "arr /sort:asd"
+        ) { }
+    }
+
+    public class SortAS : SortTestBase
+    {
+        public SortAS() : base(
             input: new List<int>() { 5, 4, 3, 2, 1 },
             expected: new List<int>() { 1, 2, 3, 4, 5 },
             instruction: "arr /sort:as"
         ) { }
+    }
+
+    public class SortASD : SortTestBase
+    {
+        public SortASD() : base(
+            input: new List<int>() { 1, 2, 3, 4, 5 },
+            expected: new List<int>() { 5, 4, 3, 2, 1 },
+            instruction: "arr /sort:asd"
+        )
+        { }
     }
 
     public class SortAS_AlreadySorted : SortTestBase
@@ -29,19 +48,10 @@ namespace SeanOne.Alchemy.Test.Cases.Sort
         ) { }
     }
 
-    public class SortAS_Descending : SortTestBase
+    public class SortASD_AlreadySorted : SortTestBase
     {
-        public SortAS_Descending() : base(
-            input: new List<int>() { 1, 2, 3, 4, 5 },
-            expected: new List<int>() { 5, 4, 3, 2, 1 },
-            instruction: "arr /sort:asd"
-        ) { }
-    }
-
-    public class SortAS_AlreadySortedDesc : SortTestBase
-    {
-        public SortAS_AlreadySortedDesc() : base(
-            input: new List<int>() { 3, 1, 3, 2, 2 },
+        public SortASD_AlreadySorted() : base(
+            input: new List<int>() { 5, 4, 3, 2, 1 },
             expected: new List<int>() { 5, 4, 3, 2, 1 },
             instruction: "arr /sort:asd"
         ) { }
@@ -53,6 +63,15 @@ namespace SeanOne.Alchemy.Test.Cases.Sort
             input: new List<int>() { 3, 1, 3, 2, 2 },
             expected: new List<int>() { 1, 2, 2, 3, 3 },
             instruction: "arr /sort:as"
+        ) { }
+    }
+
+    public class SortASD_Duplicate : SortTestBase
+    {
+        public SortASD_Duplicate() : base(
+            input: new List<int>() { 3, 1, 3, 2, 2 },
+            expected: new List<int>() { 3, 3, 2, 2, 1 },
+            instruction: "arr /sort:asd"
         ) { }
     }
 }
