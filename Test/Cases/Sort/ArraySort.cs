@@ -1,7 +1,6 @@
-using SeanOne.Alchemy.Test.Cases.Error;
 using System.Collections.Generic;
 
-namespace SeanOne.Alchemy.Test.Test.Cases.Sort
+namespace SeanOne.Alchemy.Test.Cases.Sort
 {
     public class SortAS_Empty : SortTestBase
     {

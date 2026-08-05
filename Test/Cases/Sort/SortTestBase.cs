@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace SeanOne.Alchemy.Test.Test.Cases.Sort
+namespace SeanOne.Alchemy.Test.Cases.Sort
 {
     public abstract class SortTestBase : ITest
     {
