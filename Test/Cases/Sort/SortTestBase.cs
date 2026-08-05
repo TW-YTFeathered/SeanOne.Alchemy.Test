@@ -18,8 +18,8 @@ namespace SeanOne.Alchemy.Test.Cases.Sort
         public void Setup() { /* Put extra initialization here; leave blank for now */ }
 
         public string Run() =>
-            string.Join(string.Empty, Alchemy.Transform(input, ins).GetInt32List());
+            string.Join(TestConstants.SEPARATOR, Alchemy.Transform(input, ins).GetInt32List());
 
-        public string GetAnswer() => string.Join(string.Empty, expected);
+        public string GetAnswer() => string.Join(TestConstants.SEPARATOR, expected);
     }
 }
