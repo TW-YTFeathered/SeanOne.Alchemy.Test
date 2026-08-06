@@ -69,9 +69,17 @@ function Parse-TestBlock {
               elseif ($Block -match "Incorrect") { "Failed" }
               else                                { "Unknown" }
 
-    # For tests under the Error namespace, an "Error" status means the expected error occurred, so map it to Passed.
-    if ($status -eq "Error" -and $ns -like "*SeanOne.Alchemy.Test.Cases.Error*") {
-        $status = "Passed"
+    # For tests under the Error namespace, the expected behavior IS for an error to occur.
+    # - If the block reports "Error", that's the expected outcome -> map to Passed.
+    # - If the block reports "Correct" (i.e. no error occurred, normal successful return),
+    #   that means the expected error did NOT happen -> this is actually a failure -> map to Failed.
+    if ($ns -like "*SeanOne.Alchemy.Test.Cases.Error*") {
+        if ($status -eq "Error") {
+            $status = "Passed"
+        }
+        elseif ($status -eq "Passed") {
+            $status = "Failed"
+        }
     }
 
     [PSCustomObject]@{ Namespace = $ns; Class = $class; Status = $status; Block = $Block }
