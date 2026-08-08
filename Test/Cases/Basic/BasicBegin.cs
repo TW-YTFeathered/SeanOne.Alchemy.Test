@@ -1,6 +1,6 @@
 namespace SeanOne.Alchemy.Test.Cases.Basic
 {
-    public class BasicAllInOne : ITest
+    public class BasicBegin : ITest
     {
         int x;
         string ins;
@@ -8,11 +8,11 @@ namespace SeanOne.Alchemy.Test.Cases.Basic
         public void Setup()
         {
             x = 5;
-            ins = "/prefix:[ /begin:* /end:! /suffix:] /tostring:F2";
+            ins = "/begin:*";
         }
 
         public string Run() => Alchemy.Format(x, ins);
 
-        public string GetAnswer() => "[*5.00!]";
+        public string GetAnswer() => "*5";
     }
 }
