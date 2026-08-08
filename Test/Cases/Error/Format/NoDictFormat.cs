@@ -3,19 +3,8 @@ using System.Linq;
 
 namespace SeanOne.Alchemy.Test.Cases.Error.Format
 {
-    public class NoDictFormat : ITest
+    public class NoDictFormat : ErrorTestBase<Dictionary<int, int>>
     {
-        Dictionary<int, int> x;
-        string ins;
-
-        public void Setup()
-        {
-            x = Enumerable.Range(1, 10).ToDictionary(x => x, x => x * x);
-            ins = "fe /value-format:F0";
-        }
-
-        public string Run() => Alchemy.Format(x, ins);
-
-        public string GetAnswer() => "";
+        public NoDictFormat() : base(Enumerable.Range(1, 10).ToDictionary(x => x, x => x * x), "fe /value-format:F0") { }
     }
 }

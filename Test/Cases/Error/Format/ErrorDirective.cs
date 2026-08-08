@@ -3,19 +3,8 @@ using System.Linq;
 
 namespace SeanOne.Alchemy.Test.Cases.Error.Format
 {
-    public class ErrorDirective : ITest
+    public class ErrorDirective : ErrorTestBase<List<int>>
     {
-        List<int> x;
-        string ins;
-
-        public void Setup()
-        {
-            x = Enumerable.Range(0, 10).ToList();
-            ins = "loop /tostring:F2";
-        }
-
-        public string Run() => Alchemy.Format(x, ins);
-
-        public string GetAnswer() => "";
+        public ErrorDirective() : base(Enumerable.Range(0, 10).ToList(), "loop /tostring:F2") { }
     }
 }

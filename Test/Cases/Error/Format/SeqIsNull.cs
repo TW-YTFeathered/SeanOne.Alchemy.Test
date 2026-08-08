@@ -2,19 +2,8 @@ using System.Collections.Generic;
 
 namespace SeanOne.Alchemy.Test.Cases.Error.Format
 {
-    public class SeqIsNull : ITest
+    public class SeqIsNull : ErrorTestBase<List<int>>
     {
-        List<int> x;
-        string ins;
-
-        public void Setup()
-        {
-            x = null;
-            ins = "fe /tostring:F2";
-        }
-
-        public string Run() => Alchemy.Format(x, ins);
-
-        public string GetAnswer() => "";
+        public SeqIsNull() : base(null, "fe /tostring:F2") { }
     }
 }

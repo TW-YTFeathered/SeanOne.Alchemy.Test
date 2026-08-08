@@ -1,18 +1,7 @@
 namespace SeanOne.Alchemy.Test.Cases.Error.Format
 {
-    public class FeOnNonEnumerable : ITest
+    public class FeOnNonEnumerable : ErrorTestBase<string>
     {
-        string x;
-        string ins;
-
-        public void Setup()
-        {
-            x = "Hello World!";
-            ins = "fe /tostring:F2";
-        }
-
-        public string Run() => Alchemy.Format(x, ins);
-
-        public string GetAnswer() => "";
+        public FeOnNonEnumerable() : base("Hello World!", "fe /tostring:F2") { }
     }
 }
