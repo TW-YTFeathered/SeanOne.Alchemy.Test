@@ -1,15 +1,16 @@
 using System.Collections.Generic;
+using System.Linq;
 
-namespace SeanOne.Alchemy.Test.Cases.Error
+namespace SeanOne.Alchemy.Test.Cases.Error.Format
 {
-    public class SeqIsNull : ITest
+    public class NonIFormattable : ITest
     {
-        List<int> x;
+        List<string> x;
         string ins;
 
         public void Setup()
         {
-            x = null;
+            x = Enumerable.Range(0, 10).Select(x => x.ToString()).ToList();
             ins = "fe /tostring:F2";
         }
 

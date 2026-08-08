@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SeanOne.Alchemy.Test.Cases.Error
+namespace SeanOne.Alchemy.Test.Cases.Error.Format
 {
-    public class NoDictFormatWithFeOpt : ITest
+    public class NoDictFormat : ITest
     {
         Dictionary<int, int> x;
         string ins;
@@ -11,7 +11,7 @@ namespace SeanOne.Alchemy.Test.Cases.Error
         public void Setup()
         {
             x = Enumerable.Range(1, 10).ToDictionary(x => x, x => x * x);
-            ins = "fe /value-format:F0 /fe-opt";
+            ins = "fe /value-format:F0";
         }
 
         public string Run() => Alchemy.Format(x, ins);

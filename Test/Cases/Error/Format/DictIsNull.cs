@@ -1,17 +1,16 @@
 using System.Collections.Generic;
-using System.Linq;
 
-namespace SeanOne.Alchemy.Test.Cases.Error
+namespace SeanOne.Alchemy.Test.Cases.Error.Format
 {
-    public class NonExistentParam : ITest
+    public class DictIsNull : ITest
     {
-        List<int> x;
+        Dictionary<int, int> x;
         string ins;
 
         public void Setup()
         {
-            x = Enumerable.Range(0, 10).ToList();
-            ins = "fe /ts:F2";
+            x = null;
+            ins = "fe /dict-format:{0}={1}";
         }
 
         public string Run() => Alchemy.Format(x, ins);
