@@ -1,6 +1,6 @@
 namespace SeanOne.Alchemy.Test.Cases.Error
 {
-    public abstract class ErrorTestBase<T>
+    public abstract class ErrorTestBase<T> : ITest
     {
         private readonly T input;
         private readonly string ins;
