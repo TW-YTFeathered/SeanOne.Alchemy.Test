@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
+using System.Text;
 
 namespace SeanOne.Alchemy.Test
 {
@@ -10,13 +11,14 @@ namespace SeanOne.Alchemy.Test
     {
         static void Main()
         {
-            bool isInteractive = !Console.IsInputRedirected && !Console.IsOutputRedirected;
-
+            Console.OutputEncoding = Encoding.UTF8;
             CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("en-US");
 
-            DisplayRuntimeVersion();
-
+            bool isInteractive = !Console.IsInputRedirected && !Console.IsOutputRedirected;
             TestFactory.EnableDisplayDelay = isInteractive;
+
+            DisplayRuntimeVersion();
+            
             TestFactory.RunTest();
 
             Console.WriteLine($"Test count: {TestFactory.RunCount}, " +
@@ -41,7 +43,7 @@ namespace SeanOne.Alchemy.Test
             var targetFrameworkAttr = assembly.GetCustomAttribute<TargetFrameworkAttribute>();
             string targetFramework = targetFrameworkAttr?.FrameworkName ?? "Unknown";
 
-            Console.WriteLine($"Nuget package version: {targetFramework}");
+            Console.WriteLine($"Nuget targe framework: {targetFramework}");
             Console.WriteLine();
             Console.ResetColor();
         }
