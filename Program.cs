@@ -43,7 +43,7 @@ namespace SeanOne.Alchemy.Test
             var targetFrameworkAttr = assembly.GetCustomAttribute<TargetFrameworkAttribute>();
             string targetFramework = targetFrameworkAttr?.FrameworkName ?? "Unknown";
 
-            Console.WriteLine($"Nuget targe framework: {targetFramework}");
+            Console.WriteLine($"Nuget target framework: {targetFramework}");
             Console.WriteLine();
             Console.ResetColor();
         }
