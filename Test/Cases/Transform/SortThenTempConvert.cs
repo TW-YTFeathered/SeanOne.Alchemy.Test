@@ -15,6 +15,6 @@ namespace SeanOne.Alchemy.Test.Cases.Transform
 
         public string Run() => Alchemy.Transform(x, mulIns).ToString();
 
-        public string GetAnswer() => "-17.777777777778 0.00 100.00 ";
+        public string GetAnswer() => "-17.777777777778 0 100 ";
     }
 }
