@@ -8,7 +8,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="SeanOne.Alchemy" Version="3.0.0-preview.4" />
+	  <PackageReference Include="SeanOne.Alchemy" Version="3.0.0-preview.5" />
 	</ItemGroup>
 
 </Project>
