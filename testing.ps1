@@ -191,23 +191,4 @@ if (-not $hasIssues) {
     Write-Log "`nAll tests passed!" -Level Success
 }
 
-# Specifically highlight tests from the 'Error' namespace (regardless of outcome)
-$errorNamespaceTests = foreach ($fw in $allFrameworkResults.Keys | Sort-Object) {
-    $allFrameworkResults[$fw].Details | Where-Object { $_.Namespace -like "*SeanOne.Alchemy.Test.Cases.Error*" } |
-        ForEach-Object {
-            [PSCustomObject]@{
-                Framework = $fw
-                Namespace = $_.Namespace
-                Class     = $_.Class
-                Status    = $_.Status
-            }
-        }
-}
-if ($errorNamespaceTests) {
-    Write-Log "`nTests under 'SeanOne.Alchemy.Test.Cases.Error' namespace:" -Level Highlight
-    $errorNamespaceTests | Write-LogTable -Level Highlight
-} else {
-    Write-Log "`nNo tests found under the 'Error' namespace."
-}
-
 Write-Log "`nTest run complete. Log saved to: $LogFile" -Level Success
