@@ -1,7 +1,3 @@
-#define ShowClassAndNamespace
-#define ShowResult
-#define ShowIsCorrect
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -71,19 +67,14 @@ namespace SeanOne.Alchemy.Test
                 {
                     test.Setup();
 
-#if ShowClassAndNamespace
                     output.Add($"Namespace: {test.GetType().Namespace}");
                     output.Add($"Class: {test.GetType().Name}");
-#endif
 
                     string runResult = test.Run();
                     isCorrect = runResult != null && runResult.Equals(test.GetAnswer());
 
-#if ShowResult
                     output.Add($"Result: {runResult}");
-#endif
 
-#if ShowIsCorrect
                     if (isCorrect)
                     {
                         output.Add($"{test.GetType().Name}: Correct");
@@ -94,7 +85,6 @@ namespace SeanOne.Alchemy.Test
                         output.Add($"{test.GetType().Name}: Incorrect");
                         color = ConsoleColor.Red;
                     }
-#endif
                 }
                 catch (Exception ex)
                 {
