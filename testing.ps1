@@ -79,8 +79,8 @@ function Parse-TestBlock {
     $ns    = if ($Block -match "Namespace:\s*(.+)")    { $Matches[1].Trim() } else { "" }
     $class = if ($Block -match "Class:\s*(.+)")        { $Matches[1].Trim() } else { "" }
     $status = if ($Block -match "Error:")      { "Error" }
-              elseif ($Block -match "Correct")   { "Passed" }
-              elseif ($Block -match "Incorrect") { "Failed" }
+              elseif ($Block -match "Incorrect")   { "Failed" }
+              elseif ($Block -match "Correct") { "Passed" }
               else                                { "Unknown" }
 
     # For tests under the Error namespace, the expected behavior IS an error.
