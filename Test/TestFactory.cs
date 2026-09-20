@@ -10,7 +10,7 @@ namespace SeanOne.Alchemy.Test
         /// <summary>
         /// List of all tests
         /// </summary>
-        static List<ITest> Tests = new List<ITest>();
+        static List<ITest> Tests = new();
 
         /// <summary>
         /// Init Tests List
