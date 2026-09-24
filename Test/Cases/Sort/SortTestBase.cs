@@ -8,11 +8,11 @@ namespace SeanOne.Alchemy.Test.Cases.Sort
         private readonly List<int> expected;
         private readonly string ins;
 
-        protected SortTestBase(List<int> input, List<int> expected, string instruction)
+        protected SortTestBase(List<int> input, List<int> expected, string ins)
         {
             this.input = input;
             this.expected = expected;
-            this.ins = instruction;
+            this.ins = ins;
         }
 
         public void Setup() { /* Put extra initialization here; leave blank for now */ }
