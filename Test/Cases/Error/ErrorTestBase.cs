@@ -5,11 +5,7 @@ namespace SeanOne.Alchemy.Test.Cases.Error
         private readonly T input;
         private readonly string[] insList;
 
-        protected ErrorTestBase(T input, string ins)
-        {
-            this.input = input;
-            this.insList = [ins];
-        }
+        protected ErrorTestBase(T input, string ins) : this(input, [ins]) { }
 
         protected ErrorTestBase(T input, string[] insList)
         {
