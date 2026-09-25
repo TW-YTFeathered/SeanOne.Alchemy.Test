@@ -15,8 +15,8 @@ namespace SeanOne.Alchemy.Test.Cases.Sort
         public SortInsertionDescFirstWord() : base([1, 2, 3, 4, 5], [5, 4, 3, 2, 1], "arr /sort:insertiondesc") { }
     }
 
-    public class SortInsertionFullNameDesc : SortTestBase
+    public class SortInsertionFullNameDescending : SortTestBase
     {
-        public SortInsertionFullNameDesc() : base([1, 2, 3, 4, 5], [5, 4, 3, 2, 1], "arr /sort:insertiondescending") { }
+        public SortInsertionFullNameDescending() : base([1, 2, 3, 4, 5], [5, 4, 3, 2, 1], "arr /sort:insertionsortdescending") { }
     }
 }
